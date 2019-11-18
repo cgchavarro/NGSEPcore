@@ -522,7 +522,9 @@ public class KmerPrefixReadsClusteringAlgorithm {
 			for(FastqFileReader reader:readers) {
 				if(reader!=null) reader.close();
 			}
+			
 			poolManager.terminatePool();
+			System.out.println(String.format("POOL TERMINATED STATUS == %s", (poolManager.getStatus() ?  "T" : "F")));
 		}
 	}
 	

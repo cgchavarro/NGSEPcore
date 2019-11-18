@@ -38,9 +38,13 @@ public class ThreadPoolManager {
 	public void terminatePool() throws InterruptedException  {
 		pool.shutdown();
     	pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-    	if(!pool.isShutdown()) {
+    	if(!pool.isTerminated()) {
 			throw new InterruptedException("The ThreadPoolExecutor was not shutdown after an await Termination call");
 		}
+	}
+	
+	public boolean getStatus() {
+		return pool.isTerminated();
 	}
 	
 	
