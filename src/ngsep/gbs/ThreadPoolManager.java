@@ -24,11 +24,13 @@ public class ThreadPoolManager {
 	 * @throws InterruptedException if the relauch process is interrupted
 	 */
 	public void queueTask(Runnable task) throws InterruptedException {
-		int taskCount = pool.getQueue().size();
-		while (taskCount == maxTaskCount) {
-			pool.wait(10000);
+		synchronized (pool) {
+			int taskCount = pool.getQueue().size();
+			while (taskCount == maxTaskCount) {
+				pool.wait(10000);
+			}
+			pool.execute(task);
 		}
-		pool.execute(task);
 	}
 	
 	/**
