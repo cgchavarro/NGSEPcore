@@ -27,6 +27,7 @@ public class ThreadPoolManager {
 		int taskCount = pool.getQueue().size();
 		while (taskCount == maxTaskCount) {
 			Thread.yield();
+			taskCount = pool.getQueue().size();
 		}
 		pool.execute(task);
 	}
