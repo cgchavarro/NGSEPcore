@@ -524,7 +524,7 @@ public class KmerPrefixReadsClusteringAlgorithm {
 			}
 			
 			poolManager.terminatePool();
-			System.out.println(String.format("POOL TERMINATED STATUS == %s", (poolManager.getStatus() ?  "T" : "F")));
+			System.out.println(String.format("POOL TERMINATED STATUS == %s", (poolManager.getStatus() ?  "OKAY" : "FAILED")));
 		}
 	}
 	
