@@ -1,6 +1,5 @@
 package ngsep.gbs;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +29,7 @@ import ngsep.vcf.VCFFileHeader;
 import ngsep.vcf.VCFFileWriter;
 import ngsep.vcf.VCFRecord;
 
-public class ProcessClusterVCFTask extends Thread {
+public class ProcessClusterVCFTask implements Runnable {
 	//Results
 	private boolean hasFinished = false;
 	
