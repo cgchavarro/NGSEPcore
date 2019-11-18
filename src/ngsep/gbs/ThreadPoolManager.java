@@ -12,7 +12,7 @@ public class ThreadPoolManager {
 	private ThreadPoolExecutor pool;
 	
 	public ThreadPoolManager(int numberOfThreads, int maxTaskCount) {
-		this.pool = new ThreadPoolExecutor(numberOfThreads, numberOfThreads, TIMEOUT_SECONDS, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+		this.pool = new ThreadPoolExecutor(numberOfThreads, numberOfThreads*2, TIMEOUT_SECONDS, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 		this.maxTaskCount = maxTaskCount;
 		this.numThreads = numberOfThreads;
 	}
@@ -26,7 +26,7 @@ public class ThreadPoolManager {
 	public void queueTask(Runnable task) throws InterruptedException {
 		int taskCount = pool.getQueue().size();
 		if(taskCount == maxTaskCount) {
-			terminatePool();
+			relaunchPool();
 		}
 		pool.execute(task);
 	}
@@ -51,6 +51,6 @@ public class ThreadPoolManager {
 	private void relaunchPool() throws InterruptedException {
 		this.terminatePool();
     	//Create new pool
-		pool = new ThreadPoolExecutor(numThreads, numThreads, TIMEOUT_SECONDS, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+		pool = new ThreadPoolExecutor(numThreads, numThreads*2, TIMEOUT_SECONDS, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 	}
 }
