@@ -41,7 +41,6 @@ public class ThreadPoolManager {
     	if(!pool.isTerminated()) {
 			throw new InterruptedException("The ThreadPoolExecutor was not shutdown after an await Termination call");
 		}
-    	pool = null;
 	}
 	
 	public boolean getStatus() {
