@@ -26,7 +26,7 @@ public class ThreadPoolManager {
 	public void queueTask(Runnable task) throws InterruptedException {
 		int taskCount = pool.getQueue().size();
 		while (taskCount == maxTaskCount) {
-			Thread.sleep(50);
+			Thread.yield();
 		}
 		pool.execute(task);
 	}
