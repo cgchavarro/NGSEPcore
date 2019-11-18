@@ -27,7 +27,7 @@ public class ThreadPoolManager {
 		synchronized (pool) {
 			int taskCount = pool.getQueue().size();
 			while (taskCount == maxTaskCount) {
-				pool.wait(100);
+				pool.wait(10);
 			}
 			pool.execute(task);
 		}
