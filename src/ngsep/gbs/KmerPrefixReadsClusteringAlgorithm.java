@@ -459,7 +459,7 @@ public class KmerPrefixReadsClusteringAlgorithm {
 		
 		Arrays.fill(currentReads, null);
 		List<Iterator<RawRead>> iterators = new ArrayList<>();
-		//Create pool manager and statistics
+		//Create pool manager
 		ThreadPoolManager poolManager = new ThreadPoolManager(numThreads, MAX_TASK_COUNT);
 		try (PrintStream outVariants = new PrintStream(outPrefix+"_variants.vcf");
 				PrintStream memUsage = new PrintStream(outPrefix + "_memoryUsage.txt");) {

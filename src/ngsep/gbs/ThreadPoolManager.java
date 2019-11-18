@@ -1,20 +1,22 @@
 package ngsep.gbs;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class ThreadPoolManager {
-	private static final int TIMEOUT_SECONDS = 30;
+	private static final long TIMEOUT_MILLISECONDS = 1000;
 	
 	private int maxTaskCount;
 	private final int numThreads;
 	private ThreadPoolExecutor pool;
 	
 	public ThreadPoolManager(int numberOfThreads, int maxTaskCount) {
-		this.pool = new ThreadPoolExecutor(numberOfThreads, numberOfThreads*2, TIMEOUT_SECONDS, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 		this.maxTaskCount = maxTaskCount;
 		this.numThreads = numberOfThreads;
+		this.pool = new ThreadPoolExecutor(0, numThreads, TIMEOUT_MILLISECONDS, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 	}
 	
 	/**
@@ -56,6 +58,6 @@ public class ThreadPoolManager {
 	private void relaunchPool() throws InterruptedException {
 		this.terminatePool();
     	//Create new pool
-		pool = new ThreadPoolExecutor(numThreads, numThreads*2, TIMEOUT_SECONDS, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+		pool = new ThreadPoolExecutor(numThreads, numThreads*2, TIMEOUT_MILLISECONDS, TimeUnit.MICROSECONDS, new LinkedBlockingQueue<Runnable>());
 	}
 }
