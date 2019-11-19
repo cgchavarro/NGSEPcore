@@ -451,6 +451,7 @@ public class KmerPrefixReadsClusteringAlgorithm {
 		RawRead [] currentReads = new RawRead[numberOfFiles];
 		VCFFileHeader header = VCFFileHeader.makeDefaultEmptyHeader();
 		VCFFileWriter writer = new VCFFileWriter ();
+		Timer timer = new Timer();
 		
 		// add samples to header
 		for(Sample sample: this.samples) {
@@ -468,7 +469,6 @@ public class KmerPrefixReadsClusteringAlgorithm {
 			
 			// save memory usage every 5 seconds
 			memUsage.println("Time(ms)\tMemoryUsage(MB)");
-			Timer timer = new Timer();
 			timer.schedule(new MemoryUsage(memUsage), 0, 5000);
 			
 			for(int i=0; i<numberOfFiles; i++) {
@@ -523,6 +523,7 @@ public class KmerPrefixReadsClusteringAlgorithm {
 				if(reader!=null) reader.close();
 			}
 			
+			timer.cancel();
 //			poolManager.terminatePool();
 //			System.out.println(String.format("POOL TERMINATED STATUS == %s", (poolManager.getStatus() ?  "OKAY" : "FAILED")));
 		}
