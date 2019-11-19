@@ -460,7 +460,7 @@ public class KmerPrefixReadsClusteringAlgorithm {
 		Arrays.fill(currentReads, null);
 		List<Iterator<RawRead>> iterators = new ArrayList<>();
 		//Create pool manager
-		ThreadPoolManager poolManager = new ThreadPoolManager(numThreads, MAX_TASK_COUNT);
+//		ThreadPoolManager poolManager = new ThreadPoolManager(numThreads, MAX_TASK_COUNT);
 		try (PrintStream outVariants = new PrintStream(outPrefix+"_variants.vcf");
 				PrintStream memUsage = new PrintStream(outPrefix + "_memoryUsage.txt");) {
 			int numNotNull = 0;
@@ -509,7 +509,7 @@ public class KmerPrefixReadsClusteringAlgorithm {
 				
 				//Adding new task to the list and starting the new task
 			    ProcessClusterVCFTask newTask = new ProcessClusterVCFTask(nextCluster, header, writer, this, outVariants);
-			    poolManager.queueTask(newTask);
+			    newTask.run();
 				
 				if(nextCluster.getClusterNumber()%10000 == 0) {
 					log.info("Queued cluster " + nextCluster.getClusterNumber());
@@ -523,8 +523,8 @@ public class KmerPrefixReadsClusteringAlgorithm {
 				if(reader!=null) reader.close();
 			}
 			
-			poolManager.terminatePool();
-			System.out.println(String.format("POOL TERMINATED STATUS == %s", (poolManager.getStatus() ?  "OKAY" : "FAILED")));
+//			poolManager.terminatePool();
+//			System.out.println(String.format("POOL TERMINATED STATUS == %s", (poolManager.getStatus() ?  "OKAY" : "FAILED")));
 		}
 	}
 	
